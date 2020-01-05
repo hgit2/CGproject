@@ -8,9 +8,18 @@ class Ray{
 	// =====================================================================
 	//                               Constructors
 	// =====================================================================
-	Ray(Vector v, Vector d); // creates a ray of origin v and direction d
-	Ray(Vector C, int i, int j, int H, int W, double fov); // creates a ray originating from a camera of origin C (with a field of view fov in radian) and that goes through the pixel (i,j) in an image of height H and width W
-	Ray(); // default constructor (creates a ray of origin and direction (0,0,0) )
+
+	// creates a ray of origin v and direction d
+	Ray(Vector v, Vector d); 
+
+	/** 
+	 creates a ray coming from a camera of origin C (with a field of view fov in radian)
+	 and that goes through the pixel (i,j) in an image of height H and width W 
+	*/
+	Ray(Vector C, int i, int j, int H, int W, double fov);
+
+	// default constructor (creates a ray of origin (0,0,0) and direction (1/3,1/3,1/3) )
+	Ray(); 
 
 	// =========================================================================
 	//                                Destructor
@@ -26,18 +35,39 @@ class Ray{
 	// ===========================================================================
 	//                           Public Function members
 	// ===========================================================================
-	bool inters_sphere(Sphere S); // returns whether an intersection point between the ray and the sphere S exists
-	Vector inters_sphere_point(Sphere S); // calculates the first intersection point between the ray and the sphere S if it exists
-	Ray reflect(Vector P, Vector n, double eps); // returns the ray reflected at the intersection point P, with n the normal to the surface 
-	Ray refract(Vector P, Vector n, double Nair, double Nsphere, double eps); // returns the refracted ray at the intersection point P, with n the normal to the surface, Nair and Nsphere the refractive indices of the air and the intersected sphere
 	
+	/**
+	 returns true if an intersection point between the ray and the sphere S exists.
+	 The norm of the ray's direction must be equal to 1 
+	*/
+	bool inters_sphere(Sphere S); 
+
+	/**
+	 calculates the first intersection point between the ray and the sphere S if it exists.
+	 The norm of the ray's direction must be equal to 1 
+	*/
+	Vector inters_sphere_point(Sphere S); 
+
+	/**
+	 returns the ray reflected at the intersection point P, with n the normal to the surface.
+	 The norm of the ray's direction must be equal to 1 
+	*/
+	Ray reflect(Vector P, Vector n, double eps); 
+
+	/**
+	 returns the refracted ray at the intersection point P, with n the normal to the surface,
+	 Nair and Nsphere the refractive indices of the air and the intersected sphere.
+	 The norm of the ray's direction must be equal to 1
+	*/
+	Ray refract(Vector P, Vector n, double Nair, double Nsphere, double eps); 
+
+
 	protected:
 	// =====================================================================
 	//                              Data members 
 	// =====================================================================
 	Vector v_; // the origin
 	Vector d_; // the direction
-
 
 };
 

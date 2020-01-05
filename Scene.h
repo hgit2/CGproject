@@ -10,7 +10,9 @@ class Scene{
 	// =====================================================================
 	//                               Constructors
 	// =====================================================================
-	Scene(std::vector<Sphere> Sc, int N); // creates a scene Sc consisting in a vector containing N Spheres
+
+	// creates a scene Sc consisting in a vector containing N Spheres
+	Scene(std::vector<Sphere> Sc, int N); 
 
 	// =========================================================================
 	//                                Destructor
@@ -26,12 +28,35 @@ class Scene{
 	// ===========================================================================
 	//                           Public Function members
 	// ===========================================================================
-	void add_sphere(Sphere S); // add a sphere to the scene
-	bool inters_scene(Ray R); // returns whether an intersection point between the ray R and the scene exists
-	std::vector<Vector> inters_scene_point(Ray R); // calculates,  if it exists, the first intersection point P between the ray R and the scene as well as the normal to the sphere at P
-	Material get_color(Ray R, int nbrebound, Vector L, double I, double eps, double Nair); // get the color of the surface (that might be specular or transparent) intersected by the ray R, with the refractive index of the air Nair
-	Material get_color_brdf(Ray R, int nbrebound, Vector L, double I, double eps, double Nair); // get the color of the surface (that might be diffuse, specular or transparent) intersected by the ray R, with the refractive index of the air Nair, using the render equation
 
+	// adds a sphere to the scene
+	void add_sphere(Sphere S); 
+
+	// returns true if an intersection point between the ray R and the scene exists
+	bool inters_scene(Ray R);
+
+	/** 
+	 calculates,  if it exists, the first intersection point P between the ray R 
+	 and the scene as well as the normal to the sphere at P
+
+	 returns a vector containing : the intersection point, normal to the surface,
+	 color, type and refractive index of the intersected surface
+	*/
+	std::vector<Vector> inters_scene_point(Ray R); 
+
+	/** 
+	 returns the color of the surface (that might be specular or transparent) intersected by the ray R,
+	 with the refractive index of the air Nair
+	*/
+	Material get_color(Ray R, int nbrebound, Vector L, double I, double eps, double Nair); 
+
+	/**
+	 returns the color of the surface (that might be diffuse, specular or transparent) intersected by the ray R,
+	 with the refractive index of the air Nair, using the render equation
+	*/
+	Material get_color_brdf(Ray R, int nbrebound, Vector L, double I, double eps, double Nair, int Kmax);
+
+Material get_color_brdf_param(Ray R, int nbrebound, Vector L, double I, double eps, double Nair, int Kmax);
 
 	protected:
 	// =====================================================================

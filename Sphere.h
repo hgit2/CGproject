@@ -4,13 +4,20 @@
 #include "Material.h"
 
 class Sphere{
+
 	public:
 	// =====================================================================
 	//                               Constructors
 	// =====================================================================
-	Sphere(Vector v, double r); // creates a sphere of origin v and radius r
-	Sphere(Vector v, double r, Material m); // creates a sphere of origin v and radius r and color defined by the material m
-	Sphere(); // default constructor
+
+	// creates a sphere of origin v and radius r and black
+	Sphere(Vector v, double r); 
+
+	// creates a sphere of origin v and radius r and color defined by the material m
+	Sphere(Vector v, double r, Material m); 
+
+	// default constructor (creates a black sphere of origin (0,0,0) and radius 1)
+	Sphere(); 
 
 	// =========================================================================
 	//                                Destructor
@@ -30,7 +37,7 @@ class Sphere{
 	//                              Data members 
 	// =====================================================================
 	Vector v_; // the origin
-	double r_;	// the direction
+	double r_; // the direction
 	Material m_; // the material (color)
 
 

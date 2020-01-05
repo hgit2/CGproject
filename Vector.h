@@ -5,53 +5,81 @@
 class Vector{
 
 	public:
-// =====================================================================
-//                               Constructors
-// =====================================================================
-	Vector(double x, double y, double z); // creates a vector (x,y,z)
-	Vector(); // default constructor
+	// =====================================================================
+	//                               Constructors
+	// =====================================================================
 
-// =========================================================================
-//                                Destructor
-// =========================================================================
+	// creates a vector (x,y,z)
+	Vector(double x, double y, double z); 
+	
+	// default constructor
+	Vector(); 
+
+	// =========================================================================
+	//                                Destructor
+	// =========================================================================
   	virtual ~Vector();
 
-// =========================================================================
-//                                  Getters
-// =========================================================================
+	// =========================================================================
+	//                                  Getters
+	// =========================================================================
 	inline double x() const;
 	inline double y() const;
 	inline double z() const;
 
-// =========================================================================
-//                                 Operators
-// =========================================================================
-	Vector operator*(float const& a); // multiplication by a float
-	Vector operator*(Vector const& v); // multiplication by a vector 
-	Vector operator+(Vector const& v); // addition of two vectors
-	Vector operator-(); // additive inverse of the vector
-	Vector operator-(Vector const& v); // substraction of two vectors (this - v)
-	bool operator==(Vector const& v); // checks whether this vector is equal to the vector v
-	bool operator!=(Vector const& v); // checks whether this vector is not equal to the vector v
-	bool operator<=(Vector const& v); // checks whether this vector is less than or equal to the vector v
+	// =========================================================================
+	//                                 Operators
+	// =========================================================================
+	
+	// multiplication by a float	
+	Vector operator*(float const& a);  
 
-// ===========================================================================
-//                           Public Function members
-// ===========================================================================
-	double norm(); // norm
+	// multiplication by a vector, element-wise
+	Vector operator*(Vector const& v); 
 
-	double sqnorm(); // squared norm
+	// addition of two vectors (this + v)
+	Vector operator+(Vector const& v); 
 
-	double scalar_prod(Vector u); //Scalar Product
+	// additive inverse of the vector
+	Vector operator-(); 
 
-	Vector vector_prod(Vector v);	// vector product
+	// substraction of two vectors (this - v)
+	Vector operator-(Vector const& v); 
 
-	Vector normalize();	// normalizes the Vector object
+	// checks whether this vector is equal to the vector v
+	bool operator==(Vector const& v); 
+
+	// checks whether this vector is not equal to the vector v
+	bool operator!=(Vector const& v);
+
+	// checks whether this vector is less than or equal to the vector v
+	bool operator<=(Vector const& v); 
+
+
+	// ===========================================================================
+	//                           Public Function members
+	// ===========================================================================
+
+	// norm
+	double norm(); 
+
+	// squared norm
+	double sqnorm(); 
+
+	// scalar product
+	double scalar_prod(Vector u); 
+
+	// vector product
+	Vector vector_prod(Vector v); 
+	
+	// normalizes the Vector object
+	Vector normalize(); 
+
 
 	protected:
-// =====================================================================
-//                       Data members (the coordinates)
-// =====================================================================
+	// =====================================================================
+	//                       Data members (the coordinates)
+	// =====================================================================
 	double x_;
 	double y_;
 	double z_;
