@@ -187,7 +187,7 @@ Material Scene::get_color(Ray R, int nbrebound, Vector L, double I, double eps, 
 }
 
 
-Material Scene::get_color_brdf_param(Ray R, int nbrebound, Vector L, double I, double eps, double Nair, int Kmax){
+Material Scene::get_color_brdf(Ray R, int nbrebound, Vector L, double I, double eps, double Nair, int Kmax){
 	// Initialization
 	Vector vect0(0,0,0);	
 	Material result(vect0); // black color
@@ -209,13 +209,13 @@ Material Scene::get_color_brdf_param(Ray R, int nbrebound, Vector L, double I, d
 	}
 	else if(type.x() == 1 and nbrebound>0){
 		// then the intersected surface is specular 
-		result = get_color_brdf_param(R.reflect(P, n, eps), nbrebound-1, L, I, eps, Nair, Kmax); // recursive call 
+		result = get_color_brdf(R.reflect(P, n, eps), nbrebound-1, L, I, eps, Nair, Kmax); // recursive call 
 	}
 	else if(type.x() == 2 and nbrebound>0){
 		// then the intersected surface is transparent 
 		double Nsphere = inters[4].x(); // refractive index of the intersected sphere
 		Ray refract = R.refract(P, n, Nair, Nsphere, eps);
-		result = get_color_brdf_param(R.refract(P, n, Nair, Nsphere, eps), nbrebound-1, L, I, eps, Nair, Kmax); // recursive call
+		result = get_color_brdf(R.refract(P, n, Nair, Nsphere, eps), nbrebound-1, L, I, eps, Nair, Kmax); // recursive call
 	}
 	else{
 		// the intersected surface is diffuse or nbrebound=0
@@ -271,7 +271,7 @@ Material Scene::get_color_brdf_param(Ray R, int nbrebound, Vector L, double I, d
 			Vector Drand = T1*Xrand + T2*Yrand + n*Zrand; // random direction
 			Ray Rrand(Peps, Drand); // random ray corresponding to the random direction Drand (origin = intersection point shifted by eps)
 
-			Material resRand = get_color_brdf_param(Rrand, nbrebound-1, L, I, eps, Nair, Kmax); // recursive call
+			Material resRand = get_color_brdf(Rrand, nbrebound-1, L, I, eps, Nair, Kmax); // recursive call
 
 
 			// direct + indirect lighting (we assume no surface is emissive)

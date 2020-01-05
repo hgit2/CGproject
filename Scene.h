@@ -56,8 +56,6 @@ class Scene{
 	*/
 	Material get_color_brdf(Ray R, int nbrebound, Vector L, double I, double eps, double Nair, int Kmax);
 
-Material get_color_brdf_param(Ray R, int nbrebound, Vector L, double I, double eps, double Nair, int Kmax);
-
 	protected:
 	// =====================================================================
 	//                              Data members 

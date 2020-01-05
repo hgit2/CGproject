@@ -214,7 +214,7 @@ std::vector<unsigned char> path_tracer(int W, int H, double fov, Vector C, Scene
 			
 			// Monte Carlo integration
 			for(int k=0; k<Kmax; k++){
-				color = color + Sc.get_color_brdf_param(rayij, nbrebound, L, I, eps, Nair, Kmax);
+				color = color + Sc.get_color_brdf(rayij, nbrebound, L, I, eps, Nair, Kmax);
 			}
 			color.set_intensity(color.intensity()*(1./Kmax));
 
@@ -244,11 +244,11 @@ int main(int argc, char* argv[]){
 	Vector vectm1(1,1,1);
 	Material m1(vectm1); // color white, diffuse
 	// create a sphere
-	Vector vect1(0,0,0);
+	Vector vect1(0,0,10);
 	Sphere sphere1(vect1, 10, m1); 
 	// dimensions of the image
-	int W = 500;
-	int H = 500;
+	int W = 600;
+	int H = 400;
 
 //// 1. create an image of a white circle and a black background ////
 	//std::vector<unsigned char> img = create_bin_img(W, H, 1.0472, C, sphere1); // fov = 60 degree = 1.0472 rad
@@ -257,7 +257,7 @@ int main(int argc, char* argv[]){
 
 	// create a light source
 	Vector L(-10, 20, 40);
-	double I = 3000; // intensity of the light source
+	double I = 1000; // intensity of the light source
 
 //// 2. create an image of a white sphere and a black background ////
 	//std::vector<unsigned char> img2 = create_vol_img(W, H, 1.0472, C, sphere1, L, I); // fov = 60 degree = 1.0472 rad
@@ -316,7 +316,7 @@ int main(int argc, char* argv[]){
 	// create an additional transparent glass sphere
 	Vector vect8(10,2,30);
 	Sphere sphere8(vect8,3, m1t);
-	// create an additional white specular sphere 
+	// create an additional white specular sphere
 	Vector vect9(-10,0,30);
 	Sphere sphere9(vect9, 8, m1s);
 	// create an additional white sphere 
@@ -353,18 +353,18 @@ int main(int argc, char* argv[]){
 				
 /// 5. Creation of a colored scene with shadows, both specular and transparent surfaces ( and gamma correction) ///
 	double Nair = 1.;
-	int nbrebound = 5;
+	int nbrebound = 4;
 	//std::vector<unsigned char> img6 = create_scene_shadow_types_img(W, H, 1.22173, C, scene1, L, I, eps, nbrebound, Nair); // fov = 60° = 1.0472 rad
 	//save_image("Scene_colors_I3000_eps0pt001_Nsphere1pt3_5rebounds_gamma.bmp", &img6[0], W, H);
 
 /// 6. Creation of a colored scene with shadows and diffuse surfaces with indirect lighting ///
-	int Kmax = 1;
-	//double before = (clock())/(double)CLOCKS_PER_SEC;
-	//std::vector<unsigned char> img7 = path_tracer(W, H, 1.22173, C, scene1, L, I, eps, Nair, Kmax, nbrebound); // fov = 60° = 1.0472 rad
-	//save_image("Path_tracer_I1200_eps0pt001_Nsphere1pt3_Kmax1_5rebounds_newbrdf_gamma_rand_01_pi_c.bmp", &img7[0], W, H);
-	//double after = (clock())/(double)CLOCKS_PER_SEC;
-	//double diff = after - before; // execution time
-	//cout << "time " << diff << endl;
+	int Kmax = 2;
+	double before = (clock())/(double)CLOCKS_PER_SEC;
+	std::vector<unsigned char> img7 = path_tracer(W, H, 1.22173, C, scene1, L, I, eps, Nair, Kmax, nbrebound); // fov = 60° = 1.0472 rad
+	save_image("Path_tracer_I1200_eps0pt001_Nsphere1pt3_Kmax1_4rebounds_gamma.bmp", &img7[0], W, H);
+	double after = (clock())/(double)CLOCKS_PER_SEC;
+	double diff = after - before; // execution time
+	cout << "time " << diff << endl;
 	
 	
 	return 0;
