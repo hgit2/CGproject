@@ -1,4 +1,4 @@
-# CGproject
+# CR14 - Path tracer Project
 
 This projects implements a path tracer that can generate images containing spheres. Spheres can be diffuse, transparent or specular.
 
